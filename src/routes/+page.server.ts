@@ -1,4 +1,4 @@
-import { invalid } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import { parse } from 'node-html-parser'
 import type { PageServerLoad } from './$types'
 
@@ -11,14 +11,14 @@ export const load: PageServerLoad = async () => {
 		.querySelectorAll('.lister-list > tr')
 		.slice(0, 10)
 
-	const mostPopularMovies = await Promise.all(
+	const popularMovies = await Promise.all(
 		movies.map(async (movie) => {
 			const title = movie.querySelector('.titleColumn > a')
 			const year = movie.querySelector('.secondaryInfo')
 			const rating = movie.querySelector('.ratingColumn > strong[title]')
 
 			if (!title || !year || !rating) {
-				return invalid(400, {
+				throw error(400, {
 					message: 'Something went wrong fetching the data.'
 				})
 			}
@@ -32,7 +32,7 @@ export const load: PageServerLoad = async () => {
 			const image = moviePageHtml.querySelector('img.ipc-image')
 
 			if (!image) {
-				return invalid(400, {
+				throw error(400, {
 					message: 'Something went wrong fetching the image.'
 				})
 			}
@@ -46,5 +46,5 @@ export const load: PageServerLoad = async () => {
 		})
 	)
 
-	return { mostPopularMovies }
+	return { popularMovies }
 }

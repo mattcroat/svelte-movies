@@ -7,7 +7,7 @@
 </svelte:head>
 
 <header class="flex py-5 px-16 items-center gap-16 border-b-2 border-gray-800">
-	<h1 class="font-bold flex gap-1 items-center text-xl">
+	<h1 class="font-bold flex gap-1 items-center text-xl tracking-tight">
 		<img class="w-10 h-10" src="/logo.svg" alt="Svelte logo" />
 		<div>
 			svelte <span class="text-orange-500">movies</span>
