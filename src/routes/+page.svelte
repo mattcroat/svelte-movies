@@ -13,7 +13,7 @@
 	{#each popularMovies as movie}
 		<div>
 			<a
-				href="/"
+				href={movie.slug}
 				class="w-44 h-64 block bg-gray-800 rounded-lg overflow-hidden"
 			>
 				<img class="object-cover" src={movie.image} alt={movie.title} />

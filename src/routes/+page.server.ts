@@ -2,6 +2,10 @@ import { error } from '@sveltejs/kit'
 import { parse } from 'node-html-parser'
 import type { PageServerLoad } from './$types'
 
+function slug(text: string) {
+	return text.toLowerCase().replace(/[:']/g, '').replace(/\s/g, '-')
+}
+
 export const load: PageServerLoad = async () => {
 	const data = await fetch('https://www.imdb.com/chart/moviemeter/')
 	const moviesPage = await data.text()
@@ -38,6 +42,7 @@ export const load: PageServerLoad = async () => {
 			}
 
 			return {
+				slug: slug(title.text),
 				title: title.text,
 				year: year.text,
 				rating: rating.text,
